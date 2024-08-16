@@ -1,0 +1,19 @@
+/* dashboard-app/src/components/dashboard.css */
+/* dashboard-app/src/dashboard.css */
+.widget {
+    height: 150px; /* Set your desired height */
+    
+  }
+
+  .widget-title {
+    margin-top: -4px;
+    font-size: 1.5rem; /* Set your desired font size */
+    font-family: 'Arial', sans-serif; /* Change to your desired font */
+    font-weight: bold; /* Make the font bold */
+}
+
+.category-title{
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif; /* Change to your desired font */
+  font-weight: bold;
+}
