@@ -27,7 +27,7 @@ const Dashboard = () => {
   };
 
   const addWidget = () => {
-    dispatch({ type: 'ADD_WIDGET', payload: { category: currentCategory, widget: { name: newWidget.name, text: newWidget.text } } });
+    dispatch({ type: 'ADD_WIDGET', payload: { category: currentCategory, widget: { name: newWidget.name, text: newWidget.text,checked:true } } });
     setNewWidget({ name: '', text: '', category: '' });
     handleClose();
   };
@@ -67,7 +67,9 @@ const Dashboard = () => {
             {category.name}
           </Typography>
           <Grid container spacing={3}>
-            {category.widgets.map((widget) => (
+          {category.widgets
+              .filter(widget => widget.checked) // Display only checked widgets
+              .map(widget => (
               <Grid item xs={12} sm={6} md={4} key={widget.name} style={{ borderRadius: '4rem' }}>
                 <Paper className="widget" elevation={13} style={{ padding: '16px', position: 'relative' }}>
                   <Typography variant="h6" className="widget-title">{widget.name}</Typography>

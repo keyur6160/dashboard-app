@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Drawer, List, ListItem, ListItemText, Checkbox, ListItemIcon, Divider, Typography, Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -8,45 +8,44 @@ const Sidebar = ({ drawerOpen, handleDrawerClose }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [checkedWidgets, setCheckedWidgets] = useState({});
 
+  useEffect(() => {
+    if (selectedCategory) {
+      console.log(selectedCategory);
+      const initialCheckedState = {};
+      selectedCategory.widgets.forEach(widget => {
+        initialCheckedState[widget.name] = true;  // Default to true
+      });
+      setCheckedWidgets(initialCheckedState);
+    }
+  }, [selectedCategory]);
+
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    const initialCheckedState = {};
-    category.widgets.forEach(widget => {
-      initialCheckedState[widget.name] = true;
-      
-    });
-
-    setCheckedWidgets(initialCheckedState);
   };
 
   const handleCheckboxChange = (widgetName) => {
     setCheckedWidgets(prevState => ({
       ...prevState,
-      
       [widgetName]: !prevState[widgetName],
     }));
-    
-    console.log(checkedWidgets);
   };
 
   const handleConfirm = () => {
+    // Update Redux with checked status
     const updatedCategories = categories.map(category => {
       if (category.name === selectedCategory.name) {
         return {
           ...category,
-          widgets: category.widgets.map(widget => checkedWidgets[widget.name] ? widget : null).filter(Boolean)
+          widgets: category.widgets.map(widget => ({
+            ...widget,
+            checked: checkedWidgets[widget.name],
+          })),
         };
       }
-      console.log(category);
-      
       return category;
     });
-    
-    console.log([selectedCategory,updatedCategories,checkedWidgets]);
 
     dispatch({ type: 'UPDATE_CATEGORIES', payload: updatedCategories });
-
-
     handleDrawerClose();
   };
 
@@ -60,7 +59,7 @@ const Sidebar = ({ drawerOpen, handleDrawerClose }) => {
               button 
               key={category.name} 
               onClick={() => handleCategoryClick(category)} 
-              style={{ width: 'auto', marginRight: '8px', border: '1px solid blue' }} // Set width to auto and add spacing
+              style={{ width: 'auto', marginRight: '8px', border: '1px solid blue' }}
             >
               <ListItemText primary={category.name.split(" ")[0]} />
             </ListItem>

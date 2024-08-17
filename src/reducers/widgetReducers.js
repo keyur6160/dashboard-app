@@ -1,8 +1,14 @@
 import data from '../data.json';
 
 const initialState={
-    categories: data.categories,
-}
+    categories: data.categories.map(category => ({
+        ...category,
+        widgets: category.widgets.map(widget => ({
+          ...widget,
+          checked: true // Initialize all widgets as checked by default
+        }))
+      })),
+    };
 
 const widgetReducers=(state=initialState,action)=>{
     switch(action.type){
