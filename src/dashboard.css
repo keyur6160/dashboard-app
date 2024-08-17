@@ -5,14 +5,14 @@
     
   }
 
-  .widget-title {
+ div .widget-title {
     margin-top: -4px;
     font-size: 1.5rem; /* Set your desired font size */
     font-family: 'Arial', sans-serif; /* Change to your desired font */
     font-weight: bold; /* Make the font bold */
 }
 
-.category-title{
+div .category-title{
   margin-top: 20px;
   font-family: 'Arial', sans-serif; /* Change to your desired font */
   font-weight: bold;

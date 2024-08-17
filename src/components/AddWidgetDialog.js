@@ -36,6 +36,8 @@ const AddWidgetDialog = ({ open, handleClose, newWidget, setNewWidget, addWidget
           margin="dense"
           label="Widget Text"
           fullWidth
+          multiline
+          rows={4}
           value={newWidget.text}
           onChange={(e) => setNewWidget({ ...newWidget, text: e.target.value })}
           error={!!errors.text}

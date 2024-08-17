@@ -32,6 +32,11 @@ const widgetReducers=(state=initialState,action)=>{
                     :category
                 ),
             }
+            case 'UPDATE_CATEGORIES':
+                return {
+                  ...state,
+                  categories: action.payload
+                }
         default:
             return state;
     }   
